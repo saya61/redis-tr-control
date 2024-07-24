@@ -1,9 +1,5 @@
 package ac.su.kdt.redistrcontrol.domain;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,7 +28,9 @@ public class ProductResponseDTO {
             product.getPrice(),
             product.getStockQuantity(),
             product.getSalesQuantity(),
-            CategoryResponseDTO.fromCategory(product.getCategory())
+//            CategoryResponseDTO.fromCategory(product.getCategory())
+//            CategoryResponseDTO.fromCategoryWithParentsList(product.getCategory())
+            CategoryResponseDTO.fromCategoryWithParentsUrlList(product.getCategory())
         );
     }
     public static List<ProductResponseDTO> fromProducts(List<Product> products) {
