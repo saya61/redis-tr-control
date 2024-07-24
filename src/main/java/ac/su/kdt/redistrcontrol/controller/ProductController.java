@@ -33,19 +33,19 @@ public class ProductController {
     public ResponseEntity<List<ProductResponseDTO>> getAllProducts() {
         try {
             List<Product> products = productService.getAllProducts();
-            List<ProductResponseDTO> productReponseDTOS = ProductResponseDTO.fromProducts(products);
-            return new ResponseEntity<>(productReponseDTOS, HttpStatus.OK);
+            List<ProductResponseDTO> productResponseDTOS = ProductResponseDTO.fromProducts(products);
+            return new ResponseEntity<>(productResponseDTOS, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable Long id) {
+    public ResponseEntity<ProductResponseDTO> getProductById(@PathVariable Long id) {
         try {
             Optional<Product> product = productService.getProductById(id);
             if (product.isPresent()) {
-                return new ResponseEntity<>(product.get(), HttpStatus.OK);
+                return new ResponseEntity<>(ProductResponseDTO.fromProduct(product.get()), HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }

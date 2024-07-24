@@ -10,7 +10,7 @@ import java.util.List;
 @Getter @Setter
 @AllArgsConstructor
 public class ProductResponseDTO {
-    private Long id;
+    private String id;
     private String name;
     private int price;
 
@@ -23,7 +23,7 @@ public class ProductResponseDTO {
 
     public static ProductResponseDTO fromProduct(Product product) {
         return new ProductResponseDTO(
-            product.getId(),
+            "/products/" + product.getId(),
             product.getName(),
             product.getPrice(),
             product.getStockQuantity(),
