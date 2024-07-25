@@ -1,6 +1,9 @@
 package ac.su.kdt.redistrcontrol.service;
 
 import ac.su.kdt.redistrcontrol.domain.Product;
+import ac.su.kdt.redistrcontrol.domain.ProductForm;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,30 @@ public class RedisService {
     private final StringRedisTemplate redisTemplateDb0;
     private final StringRedisTemplate redisTemplateDb1;
     private final StringRedisTemplate redisTemplateDb2;
+    private final ObjectMapper objectMapper;
+
+    public boolean setProduct(String transactionKey, Product product) {
+        try {
+            String productJsonString = objectMapper.writeValueAsString(product);
+            return Boolean.TRUE.equals(
+                    redisTemplateDb0.opsForValue().setIfAbsent(
+                    transactionKey,
+                    productJsonString
+                )
+            );
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Product getProduct(String transactionKey) {
+        String productJsonString = redisTemplateDb0.opsForValue().get(transactionKey);
+        try {
+            return objectMapper.readValue(productJsonString, Product.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     // Transaction 처리를 위한 메서드
     public boolean setIfAbsent(String key, String value) {

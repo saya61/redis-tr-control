@@ -70,16 +70,36 @@ public class ProductTransactionController {
         return new ResponseEntity<>(createteProduct.get(), HttpStatus.CREATED);
     }
 
-    @PostMapping("/with-cache2")
-    public ResponseEntity<Product> createProduct3(
+    @PostMapping("/cache-write-test")
+    public ResponseEntity<Boolean> createProduct3(
             @RequestParam(name = "transaction-key") String transactionKey,
             @RequestBody ProductForm product
     ) {
-        //
+        // product 가 수신되면 set 부터 수행 동작 확인
+        boolean isSet = redisService.setProduct(transactionKey, product.toEntity());
+
         // 1) transatcionKey 에 대한 캐시값이 있는지 확인(get 호출)
         //    1-1) 없는 경우 정상 호출 진행
         //       1-2-1) 정상 흐름 진행 완료 후 응답데이터 캐싱
         //    1-2) 있는 경우 캐싱된 데이터 받아서 응답
+        return new ResponseEntity<>(isSet, HttpStatus.OK);
+    }
+
+    @GetMapping("/cache-read-test")
+    public ResponseEntity<Product> createProduct4(
+            @RequestParam(name = "transaction-key") String transactionKey,
+            @RequestBody ProductForm product
+    ) {
+        Product productFromCache = redisService.getProduct(transactionKey);
+        return new ResponseEntity<>(productFromCache, HttpStatus.OK);
+    }
+
+    @PostMapping("/cached-create")
+    public ResponseEntity<Product> cachedProducCreate(
+            @RequestParam(name = "transaction-key") String transactionKey,
+            @RequestBody ProductForm product
+    ) {
+        // TODO : 위 로직들을 참고하여 cache 활용 응답 flow 구현
         return null;
     }
 }
