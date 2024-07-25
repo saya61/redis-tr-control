@@ -73,8 +73,9 @@ public class ProductController {
 //        }
 //    }
 
+    // 1) ProductDTO 형태로 만들고 예제 호출 POSTMAN 생성 + Category
     @PostMapping
-    public ResponseEntity<Product> createProductDTO(
+    public ResponseEntity<Product> createProduct(
             @RequestBody ProductForm product
     ) {
         try {
