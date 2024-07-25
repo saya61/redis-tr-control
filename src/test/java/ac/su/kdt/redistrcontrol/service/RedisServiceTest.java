@@ -4,16 +4,18 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.time.LocalDateTime;
 
 @SpringBootTest
 class RedisServiceTest {
     @Autowired
     RedisService redisService;
     @Test
-    void set() {
+    void setIfAbsent() {
         assert redisService.setIfAbsent(
-                "hahaha", "this is test!"
+                // 10초 동안 중복 키에 입력 금지 보장
+                // 발생 시간 적기
+                "hahaha", LocalDateTime.now().toString()
         );
     }
 }

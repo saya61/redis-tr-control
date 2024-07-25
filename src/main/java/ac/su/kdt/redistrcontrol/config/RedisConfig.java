@@ -63,10 +63,12 @@ public class RedisConfig {
         // Bean 으로 제작한 객체는 주입받아서 사용하자 -> 인자 부분 없애지 말기!
         // 파라미터 주입 방식으로 Bean을 받아서 Singleton 사용법을 준수
         return redisTemplate;
+//        return new StringRedisTemplate(redisConnectionFactory); // 위 코드 3줄을 주석처리하고, 이렇게 한 줄로 대체 가능
     }
 
     @Bean
     public StringRedisTemplate redisTemplateDb0() {
+        // RedisTemplate<String, String> 은 StringRedisTemplate 으로 대체 가능
         StringRedisTemplate redisTemplate = new StringRedisTemplate();
         redisTemplate.setConnectionFactory(redisConnectionFactory0());
         return redisTemplate;

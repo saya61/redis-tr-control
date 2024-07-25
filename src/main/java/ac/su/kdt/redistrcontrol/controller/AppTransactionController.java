@@ -20,8 +20,6 @@ public class AppTransactionController {
     private final RedisService redisService;
 
     // 명사. 키 줘
-
-
     @GetMapping("/transaction-key")
     public String getTransactionKey(
 
