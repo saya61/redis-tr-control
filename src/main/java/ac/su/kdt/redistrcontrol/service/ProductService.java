@@ -1,6 +1,7 @@
 package ac.su.kdt.redistrcontrol.service;
 
 import ac.su.kdt.redistrcontrol.domain.Product;
+import ac.su.kdt.redistrcontrol.domain.ProductResponseDTO;
 import ac.su.kdt.redistrcontrol.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

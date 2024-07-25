@@ -1,6 +1,7 @@
 package ac.su.kdt.redistrcontrol.repository;
 
 import ac.su.kdt.redistrcontrol.domain.Product;
+import ac.su.kdt.redistrcontrol.domain.ProductResponseDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,4 +17,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Product save(Product product);
 
     void delete(Product product);
+
+    ProductResponseDTO save(ProductResponseDTO product);
 }

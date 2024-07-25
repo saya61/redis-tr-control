@@ -14,8 +14,11 @@ public class CategoryResponseDTO {
     private String name;
     private int depth;  // 최상위 1, 그 아래부터 2, 3, 4, ...
 
+    // DTO 에서 순환참조가 일어나는 컬럼을 조작적으로 정의!!!!!
+
     // 1) 가장 단순한 형태로 참조 문제 해결하기 (객체 사용 포기)
     private Long parentId;  // 상위 카테고리 객체 타입이 아니라 id 로만 다루기
+    // 순홤참조가 일어나는 필드를 포함하지 않게끔만 Long, String(toString()), Map<>
 
     public static CategoryResponseDTO fromCategory(Category category) {
         return new CategoryResponseDTO(
