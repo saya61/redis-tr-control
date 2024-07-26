@@ -24,7 +24,7 @@ public class CategoryForm {
     public Category toEntity() {
         Category parentCategory = new Category();
         parentCategory.setId(this.getParentId());
-        // FK 로 선언된 컬럼에는 대상 테이블 데이터 전체가 필요한게 아니라, PK 값만 넣어줘도 Insert 가능
+        // FK 로 선언된 컬럼에는 대상 테이블 데이터 전체가 필요한게 아니라, PK(id) 값만 넣어줘도 Insert 가능
         //      -> findById() 로 찾아서 넣어주는 것은 비효율적이다. 매번 호출해서 객체 데이터를 채워줄 이유 X
 
         // findById 메서드 각 카테고리 (DB 기록된) id 값을 핸들링하고 있으면 편리함!
